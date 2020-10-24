@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paragraph  | VINAY </title>
+</head>
+
+<body>
+    <div>
+    	<h1>Enter the paragraph </h1>
+        <textarea id="paragraph" rows="14" cols="100"></textarea>
+        <br><br>
+        <button id="generate">Click here!</button>
+        <br>
+        <h1>word frequency count</h1><br>
+        <table>
+        	<tr>
+        	<th>word</th>
+        	<th>count</th>
+        	</tr>
+        </table>
+    </div>
+</body>
+<script>
+    const clickD = document.getElementById('generate');
+
+    const createTable = (tableData) => {
+        var table = document.createElement('table');
+        var tableBody = document.createElement('tbody');
+
+        tableData.forEach(function (rowData) {
+            var row = document.createElement('tr');
+
+            rowData.forEach(function (cellData) {
+                var cell = document.createElement('td');
+                cell.appendChild(document.createTextNode(cellData));
+                row.appendChild(cell);
+            });
+
+            tableBody.appendChild(row);
+        });
+
+        table.appendChild(tableBody);
+        document.body.appendChild(table);
+    }
+
+    const generateWordFrequency = () => {
+        const paragraph = document.getElementById('paragraph').value.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s\s+/g, '').replace(/[0-9]/g, '');
+        const wordsArray = paragraph.split(' ').filter(data => data !== " ");
+        let wordFrequencyObj = {}
+        wordsArray.forEach(function (data) {
+            wordFrequencyObj[data] ? wordFrequencyObj[data]++ : wordFrequencyObj[data] = 1
+        })
+        let wordFrequencyArray = Object.entries(wordFrequencyObj).sort((a, b) => b[1] - a[1])
+        createTable(wordFrequencyArray)
+    }
+
+    clickD.addEventListener('click', generateWordFrequency)
+</script>
+
+</html>
+
+<style type="text/css">
+	body{
+		text-align: center;
+		padding: 0;
+		height: 100vh;
+		background: linear-gradient(to right, pink,yellow,orange,skyblue);
+		width: 100%;
+	}
+	h1{
+		text-transform: uppercase;
+		font-family:  impact , charcoal, sans-serif;
+		font-style: italic;
+		font-weight: 18px;
+		text-decoration: underline overline dotted red;
+		
+	}
+	textarea{
+		border-radius: 10px;
+		border-color: darkblue;
+	}
+	table,td,th,tr{
+ 		border: 1px solid black;
+ 		width: 500px;
+ 		/*border-collapse: collapse;*/
+ 		margin-left: auto;
+ 		margin-right: auto;
+	}
+
+	button{
+		border-radius: 50px;
+		background: red;
+	}
+
+	button:hover{
+		transform: scale(1.1);
+		cursor: pointer;
+		background-color:#07b0f1;
+		box-shadow: 0 0 2px 1px rgba(0, 166, 186, 0.5);
+	}
+	@media(max-width: 991px){
+		
+		textarea,table,tr{
+			width: 100%;
+		}
+	
+
+	}
+
+
+</style>
